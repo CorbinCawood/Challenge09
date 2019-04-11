@@ -46,19 +46,28 @@ int main(int argc, char *argv[]) {
 	colLength = seq2.length();
 
 
+	//Run through the sequence as if it were a matrix
+
 	for(i = 0; i < colLength; i++){
 		for(j = 0; j < rowLength; j++){
 			boardSize = scoreBoard.size();
+
+			//Look for matching characters
 			if(seq1.at(j) == seq2.at(i)){
 				if(seq1.at(j) == '!'){
+					//Push back a 0 for top left entry
 					scoreBoard.push_back(0);
 				}
 				else{
+					//Push_back one plus the score found in the top-left diagonal
 					scoreBoard.push_back(scoreBoard.at(boardSize - rowLength - 1) + 1);
 				}
 			}
 			else{
 				
+				//If no match, look up, left, and top-left diagonal and
+				//place these scores into a vector
+
 				if(boardSize-rowLength >= 0){
 					mostVec.push_back(scoreBoard.at(boardSize-rowLength));
 				}
@@ -70,6 +79,8 @@ int main(int argc, char *argv[]) {
 					mostVec.push_back(scoreBoard.at(boardSize-rowLength-1));
 				}
 
+				//Sort the vector, and push_back the largest score + 1 onto the scoreboard
+
 				sort(mostVec.begin(), mostVec.end());
 
 				vit = mostVec.end();
@@ -79,6 +90,8 @@ int main(int argc, char *argv[]) {
 			}
 		}
 	}
+
+	//Just output the final score
 
 	vit = scoreBoard.end();
 	vit--;
